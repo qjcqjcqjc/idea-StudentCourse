@@ -126,7 +126,7 @@
   </dependencies>
 
   <build>
-    <finalName>SpringDemo</finalName>
+    <finalName>idea-StudentCourse</finalName>
     <resources>
       <resource>
         <directory>src/main/java</directory>

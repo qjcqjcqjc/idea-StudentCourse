@@ -19,6 +19,8 @@ public class LoginController {
 
     @Autowired
     ILoginService loginService;
+    @Autowired
+    IMenuService menuService;
 
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
@@ -33,23 +35,11 @@ public class LoginController {
             return result.fail("用户名或密码不正确");
         }
         else{
-            return result.succ(200,"登陆成功",user);
+            List<Menu> menuList=menuService.getMenuById(username);
+            return result.succ(200,"登陆成功",menuList);
         }
     }
 
-    @Autowired
-    IMenuService menuService;
 
-    @RequestMapping(value = "index",method = RequestMethod.GET)
-    @ResponseBody
-    public Result getMenus(){
-        List<Menu> menuList=menuService.getMenu();
-        Result result=new Result();
-        if (menuList==null){
-            return result.fail("用户名或密码不正确");
-        }
-        else{
-            return result.succ(menuList);
-        }
-    }
+
 }
