@@ -24,7 +24,7 @@ public class LoginController {
 
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
-    public Object login(@RequestBody UserDto userDto, HttpSession httpSession){
+    public Object login(@RequestBody UserDto userDto,HttpSession httpSession){
         String username=userDto.getUsername();
         String password=userDto.getPassword();
         System.out.println("登陆控制器"+username);

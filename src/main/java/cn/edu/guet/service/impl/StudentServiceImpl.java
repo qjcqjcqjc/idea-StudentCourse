@@ -7,6 +7,7 @@ import cn.edu.guet.model.Major;
 import cn.edu.guet.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class StudentServiceImpl implements IStudentService {
@@ -19,8 +20,8 @@ public class StudentServiceImpl implements IStudentService {
 
 
     @Override
-    public List<Course> getCourse(String majorid) {
-        List<Course> courseList=studentMapper.getCourse(majorid);
+    public List<Course> getCourse(String majorid,String studentid) {
+        List<Course> courseList=studentMapper.getCourse(majorid,studentid);
         return courseList;
     }
 
@@ -28,5 +29,11 @@ public class StudentServiceImpl implements IStudentService {
     public List<Major> getMajor() {
         List<Major> majorList=majorMapper.getMajor();
         return majorList;
+    }
+
+    @Override
+    public Boolean courseSelection(String courseid, String studentid) {
+        Boolean status=studentMapper.courseSelection(courseid,studentid);
+        return status;
     }
 }

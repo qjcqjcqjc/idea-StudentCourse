@@ -20,19 +20,20 @@ public class StudentController {
     IStudentService studentService;
     Result result=new Result();
 
+
+
     @RequestMapping("ChooseCourse")
     @ResponseBody
     public Result ChooseCourse(String majorid,HttpSession httpSession){
+        String studentid= (String) httpSession.getAttribute("username");
         System.out.println("学生控制器");
-        String username= (String) httpSession.getAttribute("username");
-        System.out.println("获取到用户名"+username);
-        List<Course> courseList=studentService.getCourse(majorid);
-
+        System.out.println("获取到用户id"+studentid);
+        List<Course> courseList=studentService.getCourse(majorid,studentid);
         if (courseList==null){
             return result.fail("失败");
         }
         else{
-            return result.succ(200,"成功",courseList);
+            return result.succ(courseList);
         }
     }
 
@@ -48,4 +49,16 @@ public class StudentController {
         }
     }
 
+    @RequestMapping("CourseSelection")
+    @ResponseBody
+    public Result CourseSelection(String courseid,HttpSession httpSession){
+        String studentid= (String) httpSession.getAttribute("username");
+        Boolean status=studentService.courseSelection(courseid,studentid);
+        if (status==false){
+            return result.fail("失败");
+        }
+        else{
+            return result.succ(200,"成功",status);
+        }
+    }
 }
